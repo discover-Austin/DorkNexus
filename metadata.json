@@ -1,0 +1,7 @@
+{
+  "name": "DorkNexus",
+  "description": "An advanced Google Dorking toolkit allowing users to construct complex search queries manually or generate them using AI for security research and OSINT.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
