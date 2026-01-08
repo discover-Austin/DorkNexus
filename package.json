@@ -1,16 +1,36 @@
 {
   "name": "dorknexus",
+  "version": "1.0.0",
+  "description": "Advanced Google Dorking Toolkit - AI-powered OSINT and security research platform with Gemini AI integration",
+  "author": "DorkNexus",
+  "license": "SEE LICENSE FILE",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "keywords": [
+    "google-dorking",
+    "osint",
+    "security-research",
+    "gemini-ai",
+    "cybersecurity",
+    "reconnaissance",
+    "dork-generator",
+    "shodan",
+    "censys"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:prod": "NODE_ENV=production vite build",
+    "clean": "rm -rf dist node_modules",
+    "start": "npm run build && npm run preview"
   },
   "dependencies": {
-    "lucide-react": "^0.562.0",
     "@google/genai": "^1.34.0",
+    "lucide-react": "^0.562.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3"
   },

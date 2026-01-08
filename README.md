@@ -1,20 +1,133 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" width="100%" alt="DorkNexus Banner" />
+</p>
 
-# Run and deploy your AI Studio app
+<h1 align="center">DorkNexus</h1>
 
-This contains everything you need to run your app locally.
+<p align="center">
+  <strong>Advanced Google Dorking Toolkit for Security Research & OSINT</strong>
+</p>
 
-View your app in AI Studio: https://ai.studio/apps/drive/1_vu4kWBK65A_p_Z_4nAdAfmqGWVVjVbn
+<p align="center">
+  <img src="https://img.shields.io/badge/version-1.0.0-blue.svg" alt="Version" />
+  <img src="https://img.shields.io/badge/node-%3E%3D18.0.0-green.svg" alt="Node Version" />
+  <img src="https://img.shields.io/badge/license-Commercial-red.svg" alt="License" />
+  <img src="https://img.shields.io/badge/AI-Gemini%20Powered-purple.svg" alt="AI Powered" />
+</p>
 
-## Run Locally
+---
 
-**Prerequisites:**  Node.js
+## Overview
 
+DorkNexus is a professional-grade AI-powered Google Dorking toolkit designed for security researchers, penetration testers, and OSINT professionals. Built with React and powered by Google's Gemini AI, it provides comprehensive tools for constructing, analyzing, and optimizing advanced search queries.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Features
+
+### Core Capabilities
+
+| Feature | Description |
+|---------|-------------|
+| **Dork Builder** | Visual query constructor with intuitive field inputs |
+| **AI Generator** | Generate sophisticated dorks from natural language prompts |
+| **Deep Analyzer** | AI-powered strategy analysis with risk assessment |
+| **Template Library** | 60+ pre-built dork templates organized by category |
+| **Multi-Engine Pivot** | Translate queries to Shodan, Censys, Hunter.io, ZoomEye |
+| **Research Hub** | AI-grounded topic research with live data |
+| **NexusTerminal** | Simulated terminal with live search capabilities |
+| **NexusVault** | Persistent local storage for saved queries |
+| **Voice Commands** | Hands-free operation with voice input |
+| **Video Generator** | AI-generated educational video tutorials |
+
+### Technical Highlights
+
+- **Modern Stack**: React 19 + TypeScript + Vite
+- **AI Integration**: Gemini 3 Pro with thinking mode (32K token budget)
+- **Real-time Preview**: Live query updates as you build
+- **Dark Theme UI**: Professional cybersecurity-themed interface
+- **Responsive Design**: Works on desktop and mobile
+- **Local Persistence**: Save queries without external database
+
+## Quick Start
+
+See [INSTALLATION.md](INSTALLATION.md) for detailed setup instructions.
+
+```bash
+# 1. Install dependencies
+npm install
+
+# 2. Configure your API key
+cp .env.example .env.local
+# Edit .env.local and add your GEMINI_API_KEY
+
+# 3. Start the development server
+npm run dev
+
+# 4. Open http://localhost:3000
+```
+
+## Requirements
+
+- Node.js 18.0.0 or higher
+- Google Gemini API key ([Get one here](https://aistudio.google.com/apikey))
+- Modern web browser with JavaScript enabled
+
+## Project Structure
+
+```
+dorknexus/
+├── components/           # React UI components
+│   ├── DorkBuilder.tsx      # Manual query builder
+│   ├── AiDorkGenerator.tsx  # AI generation + analysis
+│   ├── TemplateGallery.tsx  # Pre-built templates
+│   ├── DorkResearch.tsx     # Research hub
+│   ├── MultiPivot.tsx       # Multi-engine translation
+│   ├── NexusTerminal.tsx    # Terminal interface
+│   ├── NexusVault.tsx       # Query storage
+│   ├── VideoGenerator.tsx   # Video tutorials
+│   └── VoiceCommandCenter.tsx
+├── services/
+│   └── geminiService.ts  # AI API integration
+├── utils/
+│   └── audio.ts          # Audio processing
+├── App.tsx               # Main application
+├── types.ts              # TypeScript definitions
+└── constants.tsx         # App constants
+```
+
+## Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run build:prod` | Production build with optimizations |
+| `npm run preview` | Preview production build |
+| `npm run start` | Build and preview |
+| `npm run clean` | Remove build artifacts |
+
+## Template Categories
+
+- **Network/IoT**: Webcams, printers, routers, SCADA systems
+- **Files**: Open directories, configuration files, logs
+- **Vulnerabilities**: SQL injection indicators, exposed panels
+- **Miscellaneous**: Social profiles, leaked databases
+
+## Support
+
+For support inquiries, please contact the seller through your purchase platform.
+
+## Legal Disclaimer
+
+This software is intended for **authorized security research and educational purposes only**. Users are solely responsible for ensuring their use complies with all applicable laws, regulations, and terms of service. The developers assume no liability for misuse.
+
+## License
+
+This software is distributed under a Commercial License. See [LICENSE](LICENSE) for full terms.
+
+**Redistribution, resale, or sharing of this software is strictly prohibited.**
+
+---
+
+<p align="center">
+  <strong>DorkNexus</strong> &mdash; Professional OSINT Toolkit
+</p>
