@@ -121,6 +121,8 @@ dorknexus/
 | `npm run preview` | Preview production build |
 | `npm run start` | Build and preview |
 | `npm run clean` | Remove build artifacts |
+| `npm run package` | Create distribution zip |
+| `npm run deploy` | Run deployment script |
 
 ## Template Categories
 
@@ -131,7 +133,9 @@ dorknexus/
 
 ## Support
 
-For support inquiries, please contact the seller through your purchase platform.
+For support inquiries, see [SUPPORT.md](SUPPORT.md) or contact:
+- **Email**: biblicalandr0id@gmail.com
+- **Phone**: (317) 643-1578
 
 ## Legal Disclaimer
 

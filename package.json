@@ -27,7 +27,9 @@
     "preview": "vite preview",
     "build:prod": "NODE_ENV=production vite build",
     "clean": "rm -rf dist node_modules",
-    "start": "npm run build && npm run preview"
+    "start": "npm run build && npm run preview",
+    "package": "bash scripts/package.sh",
+    "deploy": "bash scripts/deploy.sh"
   },
   "dependencies": {
     "@google/genai": "^1.34.0",
