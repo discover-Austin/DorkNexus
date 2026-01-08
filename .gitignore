@@ -4,6 +4,7 @@ node_modules/
 # Build outputs
 dist/
 build/
+dist-packages/
 
 # Environment files (contain secrets)
 .env
