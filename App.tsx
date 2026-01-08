@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Tab } from './types';
-import { APP_NAME, DISCLAIMER } from './constants';
+import { APP_NAME, APP_VERSION, DISCLAIMER } from './constants';
 import DorkBuilder from './components/DorkBuilder';
 import AiDorkGenerator from './components/AiDorkGenerator';
 import TemplateGallery from './components/TemplateGallery';
@@ -213,7 +213,7 @@ const App: React.FC = () => {
            </div>
            <div className="flex justify-between items-center text-xs text-slate-600">
              <p>&copy; {new Date().getFullYear()} {APP_NAME}. All rights reserved.</p>
-             <p className="font-mono">v3.1.0 (Terminal)</p>
+             <p className="font-mono bg-slate-800/50 px-2 py-1 rounded text-cyan-500/70">v{APP_VERSION}</p>
            </div>
         </div>
       </footer>
