@@ -131,6 +131,17 @@ dorknexus/
 - **Vulnerabilities**: SQL injection indicators, exposed panels
 - **Miscellaneous**: Social profiles, leaked databases
 
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| [INSTALLATION.md](INSTALLATION.md) | Detailed setup guide |
+| [SUPPORT.md](SUPPORT.md) | Support information & contact |
+| [SECURITY.md](SECURITY.md) | Security policy & vulnerability reporting |
+| [PRIVACY.md](PRIVACY.md) | Privacy policy & data handling |
+| [CHANGELOG.md](CHANGELOG.md) | Version history |
+| [LICENSE](LICENSE) | Commercial license terms |
+
 ## Support
 
 For support inquiries, see [SUPPORT.md](SUPPORT.md) or contact:

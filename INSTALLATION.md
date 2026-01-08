@@ -193,10 +193,44 @@ For production servers, consider using:
 
 ## Security Notes
 
-- Keep your API key secure and never expose it publicly
+### API Key Visibility Warning
+
+> **Important**: Your Gemini API key is embedded in the client-side JavaScript bundle at build time. This is standard for frontend applications, but be aware:
+
+| Concern | Reality |
+|---------|---------|
+| Is my key visible? | Yes, in browser DevTools (Network/Sources tab) |
+| Is this normal? | Yes, for client-side apps |
+| Is this a problem? | Only if you deploy publicly without restrictions |
+
+### Protecting Your API Key
+
+**For Personal/Internal Use:**
+- Your key is safe for local development and internal tools
+- Set usage quotas in Google Cloud Console as a safety net
+
+**For Public Deployment:**
+1. **Set API Key Restrictions** in [Google Cloud Console](https://console.cloud.google.com/apis/credentials):
+   - Restrict to specific HTTP referrers (your domain)
+   - Set daily quota limits
+   - Enable billing alerts
+
+2. **Consider a Backend Proxy** for production:
+   - Route API calls through your server
+   - Keep the key server-side only
+   - Add rate limiting and authentication
+
+3. **Use Separate Keys**:
+   - Development key (unrestricted, low quota)
+   - Production key (restricted, monitored)
+
+### General Security
+
+- Never commit `.env.local` to version control
 - The application runs entirely in the browser after initial load
-- No user data is sent to external servers (except Gemini API calls)
+- AI queries are sent to Google Gemini API (see [PRIVACY.md](PRIVACY.md))
 - Saved queries in NexusVault are stored locally in your browser
+- See [SECURITY.md](SECURITY.md) for vulnerability reporting
 
 ## Support
 

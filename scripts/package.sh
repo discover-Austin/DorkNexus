@@ -52,9 +52,12 @@ cp -r \
     README.md \
     INSTALLATION.md \
     CHANGELOG.md \
-    SUPPORT.md 2>/dev/null || true \
+    SUPPORT.md \
+    SECURITY.md \
+    PRIVACY.md \
     .env.example \
     .gitignore \
+    .npmrc \
     setup.js \
     "$PACKAGE_DIR/"
 
