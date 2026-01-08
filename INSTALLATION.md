@@ -2,6 +2,24 @@
 
 Complete guide for setting up DorkNexus on your system.
 
+## Quick Setup (Recommended)
+
+For the fastest setup experience, use our interactive Setup Wizard:
+
+```bash
+npm run setup
+```
+
+The wizard will guide you through:
+1. System requirements check
+2. Dependency installation
+3. API key configuration
+4. Starting the application
+
+If you prefer manual setup, continue reading below.
+
+---
+
 ## Prerequisites
 
 Before installing DorkNexus, ensure you have:

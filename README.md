@@ -49,7 +49,23 @@ DorkNexus is a professional-grade AI-powered Google Dorking toolkit designed for
 
 ## Quick Start
 
-See [INSTALLATION.md](INSTALLATION.md) for detailed setup instructions.
+### Option 1: Setup Wizard (Recommended)
+
+Run the interactive setup wizard for a guided installation:
+
+```bash
+npm run setup
+```
+
+The wizard will:
+- Check system requirements
+- Install dependencies
+- Configure your API key
+- Optionally start the application
+
+### Option 2: Manual Setup
+
+See [INSTALLATION.md](INSTALLATION.md) for detailed manual setup instructions.
 
 ```bash
 # 1. Install dependencies
@@ -98,6 +114,7 @@ dorknexus/
 
 | Command | Description |
 |---------|-------------|
+| `npm run setup` | **Interactive setup wizard** |
 | `npm run dev` | Start development server |
 | `npm run build` | Build for production |
 | `npm run build:prod` | Production build with optimizations |
