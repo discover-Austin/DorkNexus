@@ -1,5 +1,20 @@
+# 🔍 DorkNexus - Professional OSINT Toolkit
 
-DorkNexus is a professional-grade AI-powered Google Dorking toolkit designed for security researchers, penetration testers, and OSINT professionals. Built with React and powered by Google's Gemini AI, it provides comprehensive tools for constructing, analyzing, and optimizing advanced search queries.
+DorkNexus is a professional-grade AI-powered Google Dorking toolkit designed for security researchers, penetration testers, and OSINT professionals. Powered by Google's Gemini AI, it provides comprehensive tools for constructing, analyzing, and optimizing advanced search queries.
+
+## 🎯 Two Deployment Options
+
+### 1. **Desktop Application** (NEW! ⭐ Recommended)
+- **Standalone tkinter application** - no web server needed
+- **One-click installation** - fully automated setup
+- **Cross-platform** - Windows, macOS, Linux
+- **Offline-capable** - works without internet (except AI features)
+- **Zero dependencies** - just Python 3.8+
+
+### 2. **Web Application** (Original)
+- Built with React 19 + TypeScript + Vite
+- Modern web-based interface
+- Real-time preview and updates
 
 ## Features
 
@@ -27,82 +42,98 @@ DorkNexus is a professional-grade AI-powered Google Dorking toolkit designed for
 - **Responsive Design**: Works on desktop and mobile
 - **Local Persistence**: Save queries without external database
 
-## Quick Start
+## 🚀 Quick Start
 
-### Option 1: Setup Wizard (Recommended)
+### Desktop Application (Recommended)
 
-Run the interactive setup wizard for a guided installation:
+**One-Click Installation:**
+
+```bash
+# Windows
+python install_and_run.py
+
+# macOS/Linux
+python3 install_and_run.py
+```
+
+That's it! The installer automatically:
+- ✓ Checks Python version
+- ✓ Installs dependencies
+- ✓ Creates launcher scripts
+- ✓ Launches the application
+
+**See [QUICKSTART.md](QUICKSTART.md) for detailed desktop setup instructions.**
+
+### Web Application (Alternative)
+
+**Option 1: Setup Wizard**
 
 ```bash
 npm run setup
 ```
 
-The wizard will:
-- Check system requirements
-- Install dependencies
-- Configure your API key
-- Optionally start the application
-
-### Option 2: Manual Setup
-
-See [INSTALLATION.md](INSTALLATION.md) for detailed manual setup instructions.
+**Option 2: Manual Setup**
 
 ```bash
-# 1. Install dependencies
 npm install
-
-# 2. Configure your API key
 cp .env.example .env.local
 # Edit .env.local and add your GEMINI_API_KEY
-
-# 3. Start the development server
 npm run dev
-
-# 4. Open http://localhost:3000
+# Open http://localhost:3000
 ```
 
-## Requirements
+See [INSTALLATION.md](INSTALLATION.md) for detailed web setup instructions.
 
+## 📋 Requirements
+
+### Desktop Application
+- Python 3.8 or higher
+- Google Gemini API key ([Get one here](https://aistudio.google.com/apikey))
+- ~100MB disk space
+
+### Web Application
 - Node.js 18.0.0 or higher
 - Google Gemini API key ([Get one here](https://aistudio.google.com/apikey))
 - Modern web browser with JavaScript enabled
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 dorknexus/
-├── components/           # React UI components
-│   ├── DorkBuilder.tsx      # Manual query builder
-│   ├── AiDorkGenerator.tsx  # AI generation + analysis
-│   ├── TemplateGallery.tsx  # Pre-built templates
-│   ├── DorkResearch.tsx     # Research hub
-│   ├── MultiPivot.tsx       # Multi-engine translation
-│   ├── NexusTerminal.tsx    # Terminal interface
-│   ├── NexusVault.tsx       # Query storage
-│   ├── VideoGenerator.tsx   # Video tutorials
-│   └── VoiceCommandCenter.tsx
-├── services/
-│   └── geminiService.ts  # AI API integration
-├── utils/
-│   └── audio.ts          # Audio processing
-├── App.tsx               # Main application
-├── types.ts              # TypeScript definitions
-└── constants.tsx         # App constants
+├── dorknexus_app.py      # Desktop application (tkinter)
+├── install_and_run.py    # One-click installer
+├── requirements.txt      # Python dependencies
+├── DorkNexus.bat         # Windows launcher
+├── DorkNexus.sh          # Unix launcher
+├── components/           # React UI components (web version)
+├── services/             # API integration
+├── utils/                # Utilities
+├── App.tsx               # Web application main
+└── scripts/              # Build scripts
+    ├── package.js        # Cross-platform packaging
+    └── deploy.js         # Deployment script
 ```
 
-## Available Scripts
+## 🔧 Available Scripts
+
+### Desktop Application
 
 | Command | Description |
 |---------|-------------|
-| `npm run setup` | **Interactive setup wizard** |
+| `python install_and_run.py` | **One-click install & launch** |
+| `python dorknexus_app.py` | Run desktop app |
+| `DorkNexus.bat` (Windows) | Quick launcher |
+| `./DorkNexus.sh` (Unix) | Quick launcher |
+
+### Web Application
+
+| Command | Description |
+|---------|-------------|
+| `npm run setup` | Interactive setup wizard |
 | `npm run dev` | Start development server |
 | `npm run build` | Build for production |
-| `npm run build:prod` | Production build with optimizations |
-| `npm run preview` | Preview production build |
-| `npm run start` | Build and preview |
-| `npm run clean` | Remove build artifacts |
-| `npm run package` | Create distribution zip |
-| `npm run deploy` | Run deployment script |
+| `npm run package` | Create distribution zip (cross-platform) |
+| `npm run deploy` | Run deployment script (cross-platform) |
 
 ## Template Categories
 
@@ -111,11 +142,12 @@ dorknexus/
 - **Vulnerabilities**: SQL injection indicators, exposed panels
 - **Miscellaneous**: Social profiles, leaked databases
 
-## Documentation
+## 📚 Documentation
 
 | Document | Description |
 |----------|-------------|
-| [INSTALLATION.md](INSTALLATION.md) | Detailed setup guide |
+| [QUICKSTART.md](QUICKSTART.md) | **Desktop app quick start guide** |
+| [INSTALLATION.md](INSTALLATION.md) | Detailed web setup guide |
 | [SUPPORT.md](SUPPORT.md) | Support information & contact |
 | [SECURITY.md](SECURITY.md) | Security policy & vulnerability reporting |
 | [PRIVACY.md](PRIVACY.md) | Privacy policy & data handling |
