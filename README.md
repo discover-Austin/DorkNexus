@@ -1,23 +1,3 @@
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" width="100%" alt="DorkNexus Banner" />
-</p>
-
-<h1 align="center">DorkNexus</h1>
-
-<p align="center">
-  <strong>Advanced Google Dorking Toolkit for Security Research & OSINT</strong>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/version-1.0.0-blue.svg" alt="Version" />
-  <img src="https://img.shields.io/badge/node-%3E%3D18.0.0-green.svg" alt="Node Version" />
-  <img src="https://img.shields.io/badge/license-Commercial-red.svg" alt="License" />
-  <img src="https://img.shields.io/badge/AI-Gemini%20Powered-purple.svg" alt="AI Powered" />
-</p>
-
----
-
-## Overview
 
 DorkNexus is a professional-grade AI-powered Google Dorking toolkit designed for security researchers, penetration testers, and OSINT professionals. Built with React and powered by Google's Gemini AI, it provides comprehensive tools for constructing, analyzing, and optimizing advanced search queries.
 
