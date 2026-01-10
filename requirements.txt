@@ -1,0 +1,4 @@
+# DorkNexus Desktop Application Requirements
+# Python 3.8+ required
+
+google-generativeai>=0.8.0
