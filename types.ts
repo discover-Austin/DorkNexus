@@ -62,5 +62,71 @@ export enum Tab {
   RESEARCH = 'research',
   VISUALS = 'visuals',
   VAULT = 'vault',
-  TERMINAL = 'terminal'
+  TERMINAL = 'terminal',
+  SETTINGS = 'settings'
+}
+
+export interface AppSettings {
+  // API Keys (Stored securely in electron-store)
+  apiKeys: {
+    geminiApiKey: string;
+  };
+
+  // Theme Settings
+  theme: {
+    mode: 'dark' | 'light' | 'auto';
+    accentColor: string;
+    backgroundColor: string;
+    textColor: string;
+    borderRadius: 'none' | 'small' | 'medium' | 'large';
+    glassEffect: boolean;
+  };
+
+  // Font Settings
+  font: {
+    family: string;
+    size: 'xs' | 'sm' | 'base' | 'lg' | 'xl';
+    monoFamily: string;
+    lineHeight: 'tight' | 'normal' | 'relaxed';
+  };
+
+  // Animation Settings
+  animations: {
+    enabled: boolean;
+    speed: 'slow' | 'normal' | 'fast';
+    reduceMotion: boolean;
+    transitionDuration: number;
+  };
+
+  // Layout Settings
+  layout: {
+    compactMode: boolean;
+    sidebarPosition: 'left' | 'top';
+    showFooter: boolean;
+    maxWidth: 'full' | '7xl' | '6xl' | '5xl';
+  };
+
+  // Notification Settings
+  notifications: {
+    enabled: boolean;
+    sound: boolean;
+    position: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
+  };
+
+  // Accessibility Settings
+  accessibility: {
+    highContrast: boolean;
+    focusIndicator: boolean;
+    screenReaderOptimized: boolean;
+    keyboardShortcuts: boolean;
+  };
+
+  // Advanced Settings
+  advanced: {
+    devMode: boolean;
+    autoSave: boolean;
+    autoSaveInterval: number;
+    maxHistoryItems: number;
+    enableAnalytics: boolean;
+  };
 }

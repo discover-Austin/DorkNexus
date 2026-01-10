@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Tab } from './types';
 import { APP_NAME, APP_VERSION, DISCLAIMER } from './constants';
 import DorkBuilder from './components/DorkBuilder';
@@ -10,12 +10,33 @@ import MultiPivot from './components/MultiPivot';
 import NexusVault from './components/NexusVault';
 import VoiceCommandCenter from './components/VoiceCommandCenter';
 import NexusTerminal from './components/NexusTerminal';
-import { Search, Terminal, Copy, ExternalLink, Shield, Cpu, Grid, Globe, Video, Network, Save, Command } from 'lucide-react';
+import Settings from './components/Settings';
+import { useSettings } from './contexts/SettingsContext';
+import { Search, Terminal, Copy, ExternalLink, Shield, Cpu, Grid, Globe, Video, Network, Save, Command, Settings as SettingsIcon } from 'lucide-react';
 
 const App: React.FC = () => {
+  const { settings } = useSettings();
   const [activeTab, setActiveTab] = useState<Tab>(Tab.BUILDER);
   const [currentDork, setCurrentDork] = useState<string>('');
   const [copied, setCopied] = useState(false);
+
+  // Memoize callbacks to prevent unnecessary re-renders
+  const handleDorkChange = useCallback((dork: string) => {
+    setCurrentDork(dork);
+  }, []);
+
+  const handleDorkGenerated = useCallback((dork: string) => {
+    setCurrentDork(dork);
+  }, []);
+
+  const handleTemplateSelect = useCallback((dork: string) => {
+    setCurrentDork(dork);
+  }, []);
+
+  const handleVaultLoad = useCallback((dork: string) => {
+    setCurrentDork(dork);
+    setActiveTab(Tab.BUILDER);
+  }, []);
 
   const handleCopy = () => {
     if (!currentDork) return;
@@ -44,11 +65,8 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-[#0f172a] text-slate-300 font-sans selection:bg-cyan-500/30 selection:text-cyan-200 flex flex-col relative">
       
       {/* GLOBAL VOICE COMMAND CENTER */}
-      <VoiceCommandCenter 
-        onUpdateDork={(dork) => {
-          setCurrentDork(dork);
-          setActiveTab(Tab.BUILDER); // Auto-switch to view the new dork
-        }}
+      <VoiceCommandCenter
+        onUpdateDork={handleVaultLoad}
         onChangeTab={(tab) => setActiveTab(tab)}
       />
 
@@ -72,6 +90,7 @@ const App: React.FC = () => {
              <NavButton tab={Tab.RESEARCH} icon={Globe} label="Research" colorClass="bg-blue-600 shadow-blue-900/50" />
              <NavButton tab={Tab.VISUALS} icon={Video} label="Visuals" colorClass="bg-pink-600 shadow-pink-900/50" />
              <NavButton tab={Tab.VAULT} icon={Save} label="Vault" colorClass="bg-amber-600 shadow-amber-900/50" />
+             <NavButton tab={Tab.SETTINGS} icon={SettingsIcon} label="Settings" colorClass="bg-slate-600 shadow-slate-900/50" />
           </div>
         </div>
       </header>
@@ -121,7 +140,7 @@ const App: React.FC = () => {
                  <h2 className="text-xl font-bold text-white">Query Builder</h2>
                  <span className="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">Manual Mode</span>
               </div>
-              <DorkBuilder onDorkChange={setCurrentDork} />
+              <DorkBuilder onDorkChange={handleDorkChange} />
             </div>
           )}
 
@@ -131,7 +150,7 @@ const App: React.FC = () => {
                  <h2 className="text-xl font-bold text-white">AI Intelligence</h2>
                  <span className="text-xs px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">Gemini 3 Pro + Thinking</span>
               </div>
-              <AiDorkGenerator onDorkGenerated={setCurrentDork} />
+              <AiDorkGenerator onDorkGenerated={handleDorkGenerated} />
             </div>
           )}
 
@@ -141,7 +160,7 @@ const App: React.FC = () => {
                  <h2 className="text-xl font-bold text-white">Common Dorks</h2>
                  <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Library</span>
               </div>
-               <TemplateGallery onSelect={setCurrentDork} />
+               <TemplateGallery onSelect={handleTemplateSelect} />
              </div>
           )}
 
@@ -191,10 +210,13 @@ const App: React.FC = () => {
                  <h2 className="text-xl font-bold text-white">Nexus Vault</h2>
                  <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">Secure Persistence</span>
               </div>
-               <NexusVault currentDork={currentDork} onLoadDork={(dork) => {
-                 setCurrentDork(dork);
-                 setActiveTab(Tab.BUILDER);
-               }} />
+               <NexusVault currentDork={currentDork} onLoadDork={handleVaultLoad} />
+             </div>
+          )}
+
+          {activeTab === Tab.SETTINGS && (
+             <div className="animate-fadeIn">
+               <Settings />
              </div>
           )}
         </div>
@@ -202,21 +224,23 @@ const App: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800 mt-auto bg-[#0b1120]">
-        <div className="max-w-7xl mx-auto px-4 py-8">
-           <div className="bg-yellow-900/10 border border-yellow-700/20 rounded-lg p-4 flex gap-4 items-start mb-6">
-             <Shield className="w-6 h-6 text-yellow-500 flex-shrink-0 mt-0.5" />
-             <div className="text-sm text-yellow-200/80">
-               <strong className="block text-yellow-400 mb-1">Legal Disclaimer</strong>
-               {DISCLAIMER}
-             </div>
-           </div>
-           <div className="flex justify-between items-center text-xs text-slate-600">
-             <p>&copy; {new Date().getFullYear()} {APP_NAME}. All rights reserved.</p>
-             <p className="font-mono bg-slate-800/50 px-2 py-1 rounded text-cyan-500/70">v{APP_VERSION}</p>
-           </div>
-        </div>
-      </footer>
+      {settings.layout.showFooter && (
+        <footer className="border-t border-slate-800 mt-auto bg-[#0b1120] theme-transition">
+          <div className="max-w-7xl mx-auto px-4 py-8">
+            <div className="bg-yellow-900/10 border border-yellow-700/20 rounded-lg p-4 flex gap-4 items-start mb-6 theme-transition">
+              <Shield className="w-6 h-6 text-yellow-500 flex-shrink-0 mt-0.5" />
+              <div className="text-sm text-yellow-200/80">
+                <strong className="block text-yellow-400 mb-1">Legal Disclaimer</strong>
+                {DISCLAIMER}
+              </div>
+            </div>
+            <div className="flex justify-between items-center text-xs text-slate-600">
+              <p>&copy; {new Date().getFullYear()} {APP_NAME}. All rights reserved.</p>
+              <p className="font-mono bg-slate-800/50 px-2 py-1 rounded text-cyan-500/70">v{APP_VERSION}</p>
+            </div>
+          </div>
+        </footer>
+      )}
     </div>
   );
 };
