@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Tab } from './types';
 import { APP_NAME, APP_VERSION, DISCLAIMER } from './constants';
 import DorkBuilder from './components/DorkBuilder';
@@ -19,6 +19,24 @@ const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>(Tab.BUILDER);
   const [currentDork, setCurrentDork] = useState<string>('');
   const [copied, setCopied] = useState(false);
+
+  // Memoize callbacks to prevent unnecessary re-renders
+  const handleDorkChange = useCallback((dork: string) => {
+    setCurrentDork(dork);
+  }, []);
+
+  const handleDorkGenerated = useCallback((dork: string) => {
+    setCurrentDork(dork);
+  }, []);
+
+  const handleTemplateSelect = useCallback((dork: string) => {
+    setCurrentDork(dork);
+  }, []);
+
+  const handleVaultLoad = useCallback((dork: string) => {
+    setCurrentDork(dork);
+    setActiveTab(Tab.BUILDER);
+  }, []);
 
   const handleCopy = () => {
     if (!currentDork) return;
@@ -47,11 +65,8 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-[#0f172a] text-slate-300 font-sans selection:bg-cyan-500/30 selection:text-cyan-200 flex flex-col relative">
       
       {/* GLOBAL VOICE COMMAND CENTER */}
-      <VoiceCommandCenter 
-        onUpdateDork={(dork) => {
-          setCurrentDork(dork);
-          setActiveTab(Tab.BUILDER); // Auto-switch to view the new dork
-        }}
+      <VoiceCommandCenter
+        onUpdateDork={handleVaultLoad}
         onChangeTab={(tab) => setActiveTab(tab)}
       />
 
@@ -125,7 +140,7 @@ const App: React.FC = () => {
                  <h2 className="text-xl font-bold text-white">Query Builder</h2>
                  <span className="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">Manual Mode</span>
               </div>
-              <DorkBuilder onDorkChange={setCurrentDork} />
+              <DorkBuilder onDorkChange={handleDorkChange} />
             </div>
           )}
 
@@ -135,7 +150,7 @@ const App: React.FC = () => {
                  <h2 className="text-xl font-bold text-white">AI Intelligence</h2>
                  <span className="text-xs px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">Gemini 3 Pro + Thinking</span>
               </div>
-              <AiDorkGenerator onDorkGenerated={setCurrentDork} />
+              <AiDorkGenerator onDorkGenerated={handleDorkGenerated} />
             </div>
           )}
 
@@ -145,7 +160,7 @@ const App: React.FC = () => {
                  <h2 className="text-xl font-bold text-white">Common Dorks</h2>
                  <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Library</span>
               </div>
-               <TemplateGallery onSelect={setCurrentDork} />
+               <TemplateGallery onSelect={handleTemplateSelect} />
              </div>
           )}
 
@@ -195,10 +210,7 @@ const App: React.FC = () => {
                  <h2 className="text-xl font-bold text-white">Nexus Vault</h2>
                  <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">Secure Persistence</span>
               </div>
-               <NexusVault currentDork={currentDork} onLoadDork={(dork) => {
-                 setCurrentDork(dork);
-                 setActiveTab(Tab.BUILDER);
-               }} />
+               <NexusVault currentDork={currentDork} onLoadDork={handleVaultLoad} />
              </div>
           )}
 

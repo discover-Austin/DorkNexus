@@ -182,6 +182,48 @@ const Settings: React.FC = () => {
 
       {/* Settings Grid */}
       <div className="space-y-6">
+        {/* API Keys Section */}
+        <SettingsSection
+          icon={Key}
+          title="API Keys"
+          description="Securely manage your API credentials (stored in encrypted storage)"
+        >
+          <SettingRow
+            label="Gemini API Key"
+            description="Required for AI-powered dork generation and analysis"
+          >
+            <div className="flex gap-2 items-center">
+              <input
+                type="password"
+                value={settings.apiKeys.geminiApiKey}
+                onChange={(e) => handleUpdate({ apiKeys: { ...settings.apiKeys, geminiApiKey: e.target.value } })}
+                placeholder="Enter your Gemini API key..."
+                className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-cyan-500 transition-all duration-200 w-64 font-mono"
+              />
+              {settings.apiKeys.geminiApiKey && (
+                <Check className="w-4 h-4 text-green-400" />
+              )}
+            </div>
+          </SettingRow>
+          <div className="mt-4 p-3 bg-cyan-900/10 border border-cyan-700/20 rounded-lg">
+            <p className="text-xs text-cyan-200/80 flex items-start gap-2">
+              <Info className="w-4 h-4 flex-shrink-0 mt-0.5" />
+              <span>
+                <strong className="text-cyan-400">Get your free API key:</strong> Visit{' '}
+                <a
+                  href="https://makersuite.google.com/app/apikey"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-cyan-300"
+                >
+                  Google AI Studio
+                </a>{' '}
+                to create a free Gemini API key. Your key is encrypted and stored locally - it never leaves your device.
+              </span>
+            </p>
+          </div>
+        </SettingsSection>
+
         {/* Theme Settings */}
         <SettingsSection
           icon={Palette}

@@ -13,6 +13,9 @@ declare global {
 
 // Default settings
 const defaultSettings: AppSettings = {
+  apiKeys: {
+    geminiApiKey: '',
+  },
   theme: {
     mode: 'dark',
     accentColor: 'cyan',

@@ -67,6 +67,11 @@ export enum Tab {
 }
 
 export interface AppSettings {
+  // API Keys (Stored securely in electron-store)
+  apiKeys: {
+    geminiApiKey: string;
+  };
+
   // Theme Settings
   theme: {
     mode: 'dark' | 'light' | 'auto';
