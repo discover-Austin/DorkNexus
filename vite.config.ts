@@ -8,8 +8,10 @@ export default defineConfig(({ mode }) => {
       server: {
         port: 3000,
         host: '0.0.0.0',
+        strictPort: true,
       },
       plugins: [react()],
+      base: './', // Important for Electron - use relative paths
       define: {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
         'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
@@ -18,6 +20,25 @@ export default defineConfig(({ mode }) => {
         alias: {
           '@': path.resolve(__dirname, '.'),
         }
+      },
+      build: {
+        outDir: 'dist',
+        emptyOutDir: true,
+        rollupOptions: {
+          output: {
+            // Ensure consistent chunk naming for Electron
+            entryFileNames: 'assets/[name].js',
+            chunkFileNames: 'assets/[name].js',
+            assetFileNames: 'assets/[name].[ext]'
+          }
+        },
+        // Target modern browsers/Electron
+        target: 'esnext',
+        minify: 'esbuild',
+        sourcemap: false,
+      },
+      optimizeDeps: {
+        exclude: ['electron']
       }
     };
 });

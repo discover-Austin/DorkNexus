@@ -2,10 +2,44 @@ import React, { useState, useEffect } from 'react';
 import { VaultItem } from '../types';
 import { Save, Trash2, Copy, Tag, Clock, ArrowUpRight, Search } from 'lucide-react';
 
+// Define window interface for Electron APIs
+declare global {
+  interface Window {
+    electronStore?: {
+      get: (key: string) => Promise<any>;
+      set: (key: string, value: any) => Promise<boolean>;
+      delete: (key: string) => Promise<boolean>;
+      clear: () => Promise<boolean>;
+      has: (key: string) => Promise<boolean>;
+      getAll: () => Promise<any>;
+    };
+  }
+}
+
 interface NexusVaultProps {
   currentDork: string;
   onLoadDork: (dork: string) => void;
 }
+
+// Storage abstraction layer - works with both localStorage and Electron Store
+const storage = {
+  async getItem(key: string): Promise<string | null> {
+    if (window.electronStore) {
+      const value = await window.electronStore.get(key);
+      return value !== undefined ? JSON.stringify(value) : null;
+    } else {
+      return localStorage.getItem(key);
+    }
+  },
+
+  async setItem(key: string, value: string): Promise<void> {
+    if (window.electronStore) {
+      await window.electronStore.set(key, JSON.parse(value));
+    } else {
+      localStorage.setItem(key, value);
+    }
+  }
+};
 
 const NexusVault: React.FC<NexusVaultProps> = ({ currentDork, onLoadDork }) => {
   const [items, setItems] = useState<VaultItem[]>([]);
@@ -14,17 +48,20 @@ const NexusVault: React.FC<NexusVaultProps> = ({ currentDork, onLoadDork }) => {
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    const saved = localStorage.getItem('nexus_vault');
-    if (saved) {
+    const loadVault = async () => {
       try {
-        setItems(JSON.parse(saved));
+        const saved = await storage.getItem('nexus_vault');
+        if (saved) {
+          setItems(JSON.parse(saved));
+        }
       } catch (e) {
         console.error("Failed to load vault", e);
       }
-    }
+    };
+    loadVault();
   }, []);
 
-  const saveItem = () => {
+  const saveItem = async () => {
     if (!currentDork) return;
     const newItem: VaultItem = {
       id: crypto.randomUUID(),
@@ -35,15 +72,15 @@ const NexusVault: React.FC<NexusVaultProps> = ({ currentDork, onLoadDork }) => {
     };
     const updated = [newItem, ...items];
     setItems(updated);
-    localStorage.setItem('nexus_vault', JSON.stringify(updated));
+    await storage.setItem('nexus_vault', JSON.stringify(updated));
     setNote('');
     setTags('');
   };
 
-  const deleteItem = (id: string) => {
+  const deleteItem = async (id: string) => {
     const updated = items.filter(i => i.id !== id);
     setItems(updated);
-    localStorage.setItem('nexus_vault', JSON.stringify(updated));
+    await storage.setItem('nexus_vault', JSON.stringify(updated));
   };
 
   const filteredItems = items.filter(i => 

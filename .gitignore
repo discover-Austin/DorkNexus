@@ -31,3 +31,26 @@ npm-debug.log*
 
 # Vite cache
 .vite/
+
+# Electron build outputs
+out/
+.webpack/
+.erb/
+
+# Electron Forge
+.forge/
+
+# electron-builder
+release/
+
+# Electron packaged apps
+*.dmg
+*.pkg
+*.deb
+*.rpm
+*.exe
+*.AppImage
+*.snap
+
+# Electron store data (dev)
+electron-store/
