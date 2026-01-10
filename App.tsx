@@ -10,9 +10,12 @@ import MultiPivot from './components/MultiPivot';
 import NexusVault from './components/NexusVault';
 import VoiceCommandCenter from './components/VoiceCommandCenter';
 import NexusTerminal from './components/NexusTerminal';
-import { Search, Terminal, Copy, ExternalLink, Shield, Cpu, Grid, Globe, Video, Network, Save, Command } from 'lucide-react';
+import Settings from './components/Settings';
+import { useSettings } from './contexts/SettingsContext';
+import { Search, Terminal, Copy, ExternalLink, Shield, Cpu, Grid, Globe, Video, Network, Save, Command, Settings as SettingsIcon } from 'lucide-react';
 
 const App: React.FC = () => {
+  const { settings } = useSettings();
   const [activeTab, setActiveTab] = useState<Tab>(Tab.BUILDER);
   const [currentDork, setCurrentDork] = useState<string>('');
   const [copied, setCopied] = useState(false);
@@ -72,6 +75,7 @@ const App: React.FC = () => {
              <NavButton tab={Tab.RESEARCH} icon={Globe} label="Research" colorClass="bg-blue-600 shadow-blue-900/50" />
              <NavButton tab={Tab.VISUALS} icon={Video} label="Visuals" colorClass="bg-pink-600 shadow-pink-900/50" />
              <NavButton tab={Tab.VAULT} icon={Save} label="Vault" colorClass="bg-amber-600 shadow-amber-900/50" />
+             <NavButton tab={Tab.SETTINGS} icon={SettingsIcon} label="Settings" colorClass="bg-slate-600 shadow-slate-900/50" />
           </div>
         </div>
       </header>
@@ -197,26 +201,34 @@ const App: React.FC = () => {
                }} />
              </div>
           )}
+
+          {activeTab === Tab.SETTINGS && (
+             <div className="animate-fadeIn">
+               <Settings />
+             </div>
+          )}
         </div>
 
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800 mt-auto bg-[#0b1120]">
-        <div className="max-w-7xl mx-auto px-4 py-8">
-           <div className="bg-yellow-900/10 border border-yellow-700/20 rounded-lg p-4 flex gap-4 items-start mb-6">
-             <Shield className="w-6 h-6 text-yellow-500 flex-shrink-0 mt-0.5" />
-             <div className="text-sm text-yellow-200/80">
-               <strong className="block text-yellow-400 mb-1">Legal Disclaimer</strong>
-               {DISCLAIMER}
-             </div>
-           </div>
-           <div className="flex justify-between items-center text-xs text-slate-600">
-             <p>&copy; {new Date().getFullYear()} {APP_NAME}. All rights reserved.</p>
-             <p className="font-mono bg-slate-800/50 px-2 py-1 rounded text-cyan-500/70">v{APP_VERSION}</p>
-           </div>
-        </div>
-      </footer>
+      {settings.layout.showFooter && (
+        <footer className="border-t border-slate-800 mt-auto bg-[#0b1120] theme-transition">
+          <div className="max-w-7xl mx-auto px-4 py-8">
+            <div className="bg-yellow-900/10 border border-yellow-700/20 rounded-lg p-4 flex gap-4 items-start mb-6 theme-transition">
+              <Shield className="w-6 h-6 text-yellow-500 flex-shrink-0 mt-0.5" />
+              <div className="text-sm text-yellow-200/80">
+                <strong className="block text-yellow-400 mb-1">Legal Disclaimer</strong>
+                {DISCLAIMER}
+              </div>
+            </div>
+            <div className="flex justify-between items-center text-xs text-slate-600">
+              <p>&copy; {new Date().getFullYear()} {APP_NAME}. All rights reserved.</p>
+              <p className="font-mono bg-slate-800/50 px-2 py-1 rounded text-cyan-500/70">v{APP_VERSION}</p>
+            </div>
+          </div>
+        </footer>
+      )}
     </div>
   );
 };
