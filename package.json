@@ -28,7 +28,7 @@
     "dev": "vite",
     "build": "vite build",
     "build:vercel": "vite build",
-    "build:electron": "ELECTRON=true vite build",
+    "build:electron": "cross-env ELECTRON=true vite build",
     "preview": "vite preview",
     "build:prod": "NODE_ENV=production vite build",
     "clean": "rm -rf dist node_modules out",
