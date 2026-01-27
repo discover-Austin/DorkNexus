@@ -4,6 +4,10 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
+    // Use absolute path for web deployment (Vercel, etc), relative for Electron
+    const isElectron = process.env.ELECTRON === 'true';
+    const base = isElectron ? './' : '/';
+    
     return {
       server: {
         port: 3000,
@@ -11,7 +15,7 @@ export default defineConfig(({ mode }) => {
         strictPort: true,
       },
       plugins: [react()],
-      base: './', // Important for Electron - use relative paths
+      base, // Dynamic base path based on deployment target
       define: {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
         'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)

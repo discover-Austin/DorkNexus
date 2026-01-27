@@ -88,6 +88,20 @@ npm run dev
 
 See [INSTALLATION.md](INSTALLATION.md) for detailed web setup instructions.
 
+### Web Hosting / Cloud Deployment
+
+**Deploy to Vercel (Recommended for Web):**
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/discover-Austin/DorkNexus)
+
+```bash
+# Using Vercel CLI
+npm install -g vercel
+vercel --prod
+```
+
+See [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md) for detailed deployment instructions.
+
 ## 📋 Requirements
 
 ### Desktop Application
@@ -152,6 +166,7 @@ dorknexus/
 |----------|-------------|
 | [QUICKSTART.md](QUICKSTART.md) | **Desktop app quick start guide** |
 | [INSTALLATION.md](INSTALLATION.md) | Detailed web setup guide |
+| [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md) | **Vercel cloud deployment guide** |
 | [SUPPORT.md](SUPPORT.md) | Support information & contact |
 | [SECURITY.md](SECURITY.md) | Security policy & vulnerability reporting |
 | [PRIVACY.md](PRIVACY.md) | Privacy policy & data handling |
