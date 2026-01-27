@@ -1,0 +1,57 @@
+# Python files (desktop app)
+*.py
+*.pyc
+__pycache__/
+requirements.txt
+install_and_run.py
+dorknexus_app.py
+
+# Electron-specific files
+electron/
+forge.config.js
+electron-types.d.ts
+out/
+release/
+*.dmg
+*.pkg
+*.deb
+*.rpm
+*.exe
+*.AppImage
+*.snap
+
+# Development files
+.env.local
+.env
+.vscode/
+.idea/
+
+# Build artifacts
+node_modules/
+dist/
+build/
+
+# Scripts not needed for web deployment
+scripts/package.js
+scripts/package.sh
+DorkNexus.bat
+DorkNexus.sh
+
+# Documentation (keep README.md)
+ELECTRON_*.md
+QUICKSTART.md
+INSTALLATION.md
+SELLER_GUIDE.md
+PROMOTIONAL.md
+CHANGELOG.md
+
+# Test and CI files
+.github/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
