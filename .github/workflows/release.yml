@@ -10,6 +10,8 @@ jobs:
   build-electron:
     name: Build Electron App
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
     
     strategy:
       matrix:

@@ -10,6 +10,8 @@ jobs:
   build-web:
     name: Build Web Application
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
     - name: Checkout repository
@@ -34,9 +36,11 @@ jobs:
         path: dist/
         retention-days: 7
 
-  test-python:
-    name: Test Python Desktop App
+  verify-python:
+    name: Verify Python Dependencies
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
     - name: Checkout repository
@@ -45,7 +49,7 @@ jobs:
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.11'
+        python-version: '3.8'
         cache: 'pip'
 
     - name: Install Python dependencies
