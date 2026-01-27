@@ -74,6 +74,6 @@
     "typescript": "~5.8.2",
     "vite": "^6.2.0",
     "vite-plugin-electron": "^0.28.3",
-    "wait-on": "^7.2.0"
+    "wait-on": "^9.0.3"
   }
 }
