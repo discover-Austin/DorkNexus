@@ -1,5 +1,9 @@
 # 🔍 DorkNexus - Professional OSINT Toolkit
 
+[![CI](https://github.com/discover-Austin/DorkNexus/actions/workflows/ci.yml/badge.svg)](https://github.com/discover-Austin/DorkNexus/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/discover-Austin/DorkNexus/actions/workflows/codeql.yml/badge.svg)](https://github.com/discover-Austin/DorkNexus/actions/workflows/codeql.yml)
+[![Release](https://github.com/discover-Austin/DorkNexus/actions/workflows/release.yml/badge.svg)](https://github.com/discover-Austin/DorkNexus/actions/workflows/release.yml)
+
 DorkNexus is a professional-grade AI-powered Google Dorking toolkit designed for security researchers, penetration testers, and OSINT professionals. Powered by Google's Gemini AI, it provides comprehensive tools for constructing, analyzing, and optimizing advanced search queries.
 
 ## 🎯 Two Deployment Options
