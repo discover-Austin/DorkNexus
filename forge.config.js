@@ -175,7 +175,7 @@ module.exports = {
     {
       name: '@electron-forge/plugin-fuses',
       config: {
-        version: '1.10.0',
+        version: '1.8.0',
         resetAdHocDarwinSignature: true,
         runAsNode: false,
         enableCookieEncryption: true,
