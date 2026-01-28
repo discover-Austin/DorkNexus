@@ -34,7 +34,7 @@ jobs:
       run: npm run electron:make
 
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v4.4.3
+      uses: actions/upload-artifact@v6.0.0
       with:
         name: electron-build-${{ matrix.os }}
         path: out/make/**/*
