@@ -1,6 +1,6 @@
 export const hasApiKey = (): boolean => {
   const key = process.env.API_KEY || process.env.GEMINI_API_KEY;
-  return !!key && key.length > 0;
+  return !!key;
 };
 
 export const getApiKeyOrThrow = (): string => {
