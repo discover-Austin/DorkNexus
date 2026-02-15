@@ -2,12 +2,32 @@ import React, { useState, useEffect, useRef } from 'react';
 import { performLiveSearch } from '../services/geminiService';
 import { SearchResultItem } from '../types';
 import { Terminal, Play, Trash2, Shield, Lock, ExternalLink, RefreshCw, XCircle, Search } from 'lucide-react';
+import { hasApiKey } from '../utils/apiKeyCheck';
 
 interface NexusTerminalProps {
   initialDork: string;
 }
 
 const NexusTerminal: React.FC<NexusTerminalProps> = ({ initialDork }) => {
+  if (!hasApiKey()) {
+    return (
+      <div className="bg-yellow-900/20 border border-yellow-600 rounded-lg p-6">
+        <h3 className="text-yellow-400 font-semibold mb-2">API Key Required</h3>
+        <p className="text-slate-300 text-sm mb-4">
+          This feature requires a Google Gemini API key to function.
+        </p>
+        <a 
+          href="https://aistudio.google.com/app/apikey" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-cyan-400 hover:text-cyan-300 text-sm underline"
+        >
+          Get your free API key from Google AI Studio →
+        </a>
+      </div>
+    );
+  }
+
   const [command, setCommand] = useState(initialDork);
   const [logs, setLogs] = useState<string[]>([]);
   const [results, setResults] = useState<SearchResultItem[]>([]);

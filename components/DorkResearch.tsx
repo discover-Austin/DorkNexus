@@ -2,8 +2,28 @@ import React, { useState } from 'react';
 import { researchDorkTopic } from '../services/geminiService';
 import { ResearchResult } from '../types';
 import { Globe, Search, ExternalLink, Loader2, BookOpen, Link as LinkIcon } from 'lucide-react';
+import { hasApiKey } from '../utils/apiKeyCheck';
 
 const DorkResearch: React.FC = () => {
+  if (!hasApiKey()) {
+    return (
+      <div className="bg-yellow-900/20 border border-yellow-600 rounded-lg p-6">
+        <h3 className="text-yellow-400 font-semibold mb-2">API Key Required</h3>
+        <p className="text-slate-300 text-sm mb-4">
+          This feature requires a Google Gemini API key to function.
+        </p>
+        <a 
+          href="https://aistudio.google.com/app/apikey" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-cyan-400 hover:text-cyan-300 text-sm underline"
+        >
+          Get your free API key from Google AI Studio →
+        </a>
+      </div>
+    );
+  }
+
   const [topic, setTopic] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<ResearchResult | null>(null);

@@ -13,6 +13,7 @@ import NexusTerminal from './components/NexusTerminal';
 import Settings from './components/Settings';
 import { useSettings } from './contexts/SettingsContext';
 import { Search, Terminal, Copy, ExternalLink, Shield, Cpu, Grid, Globe, Video, Network, Save, Command, Settings as SettingsIcon } from 'lucide-react';
+import { hasApiKey } from './utils/apiKeyCheck';
 
 const App: React.FC = () => {
   const { settings } = useSettings();
@@ -94,6 +95,25 @@ const App: React.FC = () => {
           </div>
         </div>
       </header>
+
+      {/* API Key Warning Banner */}
+      {!hasApiKey() && (
+        <div className="bg-yellow-900/20 border-b border-yellow-600 px-4 py-2">
+          <div className="max-w-7xl mx-auto flex items-center justify-between text-sm">
+            <span className="text-yellow-300">
+              ⚠️ AI features disabled - Add GEMINI_API_KEY to enable
+            </span>
+            <a 
+              href="https://aistudio.google.com/app/apikey" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-cyan-400 hover:text-cyan-300 underline"
+            >
+              Get API Key
+            </a>
+          </div>
+        </div>
+      )}
 
       {/* Main Content */}
       <main className="flex-1 max-w-7xl mx-auto px-4 py-8 w-full">

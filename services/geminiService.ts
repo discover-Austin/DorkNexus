@@ -1,12 +1,22 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { AiDorkResponse, ResearchResult, DorkAnalysis, EngineTranslation, SearchResultItem } from "../types";
+import { getApiKeyOrThrow } from "../utils/apiKeyCheck";
 
-// Base instance for standard calls
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Base instance for standard calls - lazily initialized
+let ai: GoogleGenAI | null = null;
+
+const getAI = () => {
+  if (!ai) {
+    const apiKey = getApiKeyOrThrow();
+    ai = new GoogleGenAI({ apiKey });
+  }
+  return ai;
+};
 
 export const generateDorkFromPrompt = async (prompt: string): Promise<AiDorkResponse> => {
+  const aiInstance = getAI();
   try {
-    const response = await ai.models.generateContent({
+    const response = await aiInstance.models.generateContent({
       model: "gemini-3-pro-preview",
       contents: `Generate a Google Dork search query based on this user request: "${prompt}". 
       Ensure the syntax is valid for Google Search (using operators like site:, filetype:, intitle:, etc.).
@@ -39,8 +49,9 @@ export const generateDorkFromPrompt = async (prompt: string): Promise<AiDorkResp
 
 // NEW: Uses Thinking Mode to deeply analyze a dork strategy
 export const analyzeDorkStrategy = async (dork: string): Promise<DorkAnalysis> => {
+  const aiInstance = getAI();
   try {
-    const response = await ai.models.generateContent({
+    const response = await aiInstance.models.generateContent({
       model: "gemini-3-pro-preview",
       contents: `Act as a Senior Cyber Intelligence Analyst. Analyze the following Google Dork for effectiveness, syntax errors, logical fallacies, and noise ratio: "${dork}".
       
@@ -75,7 +86,8 @@ export const analyzeDorkStrategy = async (dork: string): Promise<DorkAnalysis> =
 
 // NEW: Translates Google Dorks to other OSINT engines
 export const translateToEngines = async (dork: string): Promise<EngineTranslation[]> => {
-  const response = await ai.models.generateContent({
+  const aiInstance = getAI();
+  const response = await aiInstance.models.generateContent({
     model: "gemini-3-flash-preview", // Flash is sufficient for translation
     contents: `Translate the intent of this Google Dork: "${dork}" into search queries for Shodan, Censys, and Hunter.io.
     
@@ -104,7 +116,8 @@ export const translateToEngines = async (dork: string): Promise<EngineTranslatio
 };
 
 export const researchDorkTopic = async (topic: string): Promise<ResearchResult> => {
-  const response = await ai.models.generateContent({
+  const aiInstance = getAI();
+  const response = await aiInstance.models.generateContent({
     model: "gemini-3-flash-preview",
     contents: `Research the following topic related to Google Dorks, OSINT, or security vulnerabilities: "${topic}". 
     Provide a concise summary of the syntax, use cases, or recent news related to this query type.`,
@@ -126,7 +139,8 @@ export const researchDorkTopic = async (topic: string): Promise<ResearchResult> 
 
 // NEW: Performs a simulated search for the Terminal
 export const performLiveSearch = async (dork: string): Promise<SearchResultItem[]> => {
-  const response = await ai.models.generateContent({
+  const aiInstance = getAI();
+  const response = await aiInstance.models.generateContent({
     model: "gemini-3-pro-preview", // Using Pro for better grounding
     contents: `Act as a Google Search Proxy. Execute this exact search query: "${dork}".
     
@@ -171,7 +185,8 @@ export const performLiveSearch = async (dork: string): Promise<SearchResultItem[
 };
 
 export const generateVideoTutorial = async (prompt: string): Promise<string> => {
-  const videoAi = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const apiKey = getApiKeyOrThrow();
+  const videoAi = new GoogleGenAI({ apiKey });
 
   let operation = await videoAi.models.generateVideos({
     model: 'veo-3.1-fast-generate-preview',
@@ -193,5 +208,5 @@ export const generateVideoTutorial = async (prompt: string): Promise<string> => 
     throw new Error("Video generation failed or returned no URI.");
   }
 
-  return `${video.uri}&key=${process.env.API_KEY}`;
+  return `${video.uri}&key=${apiKey}`;
 };

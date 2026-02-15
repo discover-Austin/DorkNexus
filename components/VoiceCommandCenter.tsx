@@ -3,6 +3,7 @@ import { GoogleGenAI, Modality, Type, FunctionDeclaration } from '@google/genai'
 import { Mic, MicOff, Radio, Activity, Terminal } from 'lucide-react';
 import { decodeAudioData, createPcmBlob } from '../utils/audio';
 import { Tab } from '../types';
+import { hasApiKey, getApiKeyOrThrow } from '../utils/apiKeyCheck';
 
 interface VoiceCommandCenterProps {
   onUpdateDork: (dork: string) => void;
@@ -10,6 +11,11 @@ interface VoiceCommandCenterProps {
 }
 
 const VoiceCommandCenter: React.FC<VoiceCommandCenterProps> = ({ onUpdateDork, onChangeTab }) => {
+  // Hide voice features if no API key
+  if (!hasApiKey()) {
+    return null;
+  }
+
   const [isActive, setIsActive] = useState(false);
   const [status, setStatus] = useState<'disconnected' | 'connecting' | 'listening' | 'speaking'>('disconnected');
   const [volume, setVolume] = useState(0);
@@ -83,7 +89,8 @@ const VoiceCommandCenter: React.FC<VoiceCommandCenterProps> = ({ onUpdateDork, o
   const connect = async () => {
     try {
       setStatus('connecting');
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const apiKey = getApiKeyOrThrow();
+      const ai = new GoogleGenAI({ apiKey });
       
       // Initialize Audio Contexts
       const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
