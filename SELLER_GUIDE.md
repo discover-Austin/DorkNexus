@@ -91,7 +91,7 @@ WHAT'S INCLUDED:
 
 REQUIREMENTS:
 
-• Node.js 18+
+• Node.js 20+
 • Gemini API key (free tier available)
 • Modern web browser
 

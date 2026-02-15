@@ -38,7 +38,7 @@ npm run setup
 - Check for typos in the variable name
 
 #### "npm install" fails
-- Verify Node.js 18+ is installed: `node --version`
+- Verify Node.js 20+ is installed: `node --version`
 - Clear cache: `npm cache clean --force`
 - Delete and reinstall: `rm -rf node_modules && npm install`
 

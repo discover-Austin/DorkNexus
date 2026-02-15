@@ -11,8 +11,8 @@ echo ""
 
 # Check Node.js version
 NODE_VERSION=$(node -v | cut -d'v' -f2 | cut -d'.' -f1)
-if [ "$NODE_VERSION" -lt 18 ]; then
-    echo "Error: Node.js 18+ is required. Current version: $(node -v)"
+if [ "$NODE_VERSION" -lt 20 ]; then
+    echo "Error: Node.js 20+ is required. Current version: $(node -v)"
     exit 1
 fi
 

@@ -139,7 +139,7 @@ After starting the application:
 
 ### "npm install" fails
 
-- Ensure you have Node.js 18+ installed
+- Ensure you have Node.js 20+ installed
 - Try clearing npm cache: `npm cache clean --force`
 - Delete `node_modules` and try again: `rm -rf node_modules && npm install`
 

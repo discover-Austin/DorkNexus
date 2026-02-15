@@ -68,8 +68,8 @@ async function main() {
   // Check Node.js version
   logStep(1, 4, 'Checking environment...');
   const nodeMajorVersion = getNodeMajorVersion();
-  if (nodeMajorVersion < 18) {
-    logError(`Node.js 18+ is required. Current version: ${process.version}`);
+  if (nodeMajorVersion < 20) {
+    logError(`Node.js 20+ is required. Current version: ${process.version}`);
     process.exit(1);
   }
 
