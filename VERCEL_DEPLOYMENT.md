@@ -67,7 +67,7 @@ The repository includes a `vercel.json` file with:
 - **Framework**: Vite (auto-detected)
 - **Build Command**: `npm run build`
 - **Output Directory**: `dist`
-- **Node Version**: 18.x
+- **Node Version**: 20.x
 - **SPA Routing**: All routes redirect to `index.html`
 - **Security Headers**: Added for enhanced security
 - **Asset Caching**: Optimized cache headers for static assets

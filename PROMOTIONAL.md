@@ -75,7 +75,7 @@ Generate AI-powered educational videos explaining any dork technique.
 - **Stack:** React 19 + TypeScript + Vite
 - **AI:** Google Gemini 3 Pro (32K thinking budget)
 - **Deployment:** Local or self-hosted
-- **Requirements:** Node.js 18+, Gemini API key (free tier available)
+- **Requirements:** Node.js 20+, Gemini API key (free tier available)
 - **License:** Single-user commercial license
 
 #### What's Included

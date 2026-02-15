@@ -110,7 +110,7 @@ See [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md) for detailed deployment instruc
 - ~100MB disk space
 
 ### Web Application
-- Node.js 18.0.0 or higher
+- Node.js 20.0.0 or higher
 - Google Gemini API key ([Get one here](https://aistudio.google.com/apikey))
 - Modern web browser with JavaScript enabled
 
