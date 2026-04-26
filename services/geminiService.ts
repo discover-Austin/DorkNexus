@@ -143,7 +143,7 @@ export const researchDorkTopic = async (topic: string): Promise<ResearchResult> 
 export const performLiveSearch = async (dork: string): Promise<SearchResultItem[]> => {
   const aiInstance = getAI();
   const response = await aiInstance.models.generateContent({
-    model: "gemini-3-pro-preview", // Using Pro for better grounding
+    model: "gemini-2.5-pro",
     contents: `Act as a Google Search Proxy. Execute this exact search query: "${dork}".
     
     Return the search results you find. 

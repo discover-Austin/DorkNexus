@@ -3,6 +3,7 @@ import { performLiveSearch } from '../services/geminiService';
 import { SearchResultItem } from '../types';
 import { Terminal, Play, Trash2, Shield, Lock, ExternalLink, RefreshCw, XCircle, Search } from 'lucide-react';
 import { hasApiKey } from '../utils/apiKeyCheck';
+import { getGeminiErrorMessage, isInvalidGeminiApiKeyError } from '../utils/geminiError';
 
 interface NexusTerminalProps {
   initialDork: string;
@@ -33,6 +34,8 @@ const NexusTerminal: React.FC<NexusTerminalProps> = ({ initialDork }) => {
   const [results, setResults] = useState<SearchResultItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [secureMode, setSecureMode] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showInvalidKeyDialog, setShowInvalidKeyDialog] = useState(false);
   
   const resultsRef = useRef<HTMLDivElement>(null);
 
@@ -72,6 +75,7 @@ const NexusTerminal: React.FC<NexusTerminalProps> = ({ initialDork }) => {
     
     setLoading(true);
     setResults([]);
+    setErrorMessage(null);
     
     // 1. Sanitize
     const cleanCommand = sanitizeInput(command);
@@ -87,7 +91,18 @@ const NexusTerminal: React.FC<NexusTerminalProps> = ({ initialDork }) => {
       setResults(data);
       addLog(`Success: Retrieved ${data.length} results.`);
     } catch (e) {
-      addLog(`Error: Execution failed.`);
+      const nextErrorMessage = getGeminiErrorMessage(
+        e,
+        'Phantom Browser failed to fetch results. Please verify your Gemini connection and try again.'
+      );
+
+      setErrorMessage(nextErrorMessage);
+      addLog(`Error: ${nextErrorMessage}`);
+
+      if (isInvalidGeminiApiKeyError(e)) {
+        setShowInvalidKeyDialog(true);
+      }
+
       console.error(e);
     } finally {
       setLoading(false);
@@ -214,12 +229,14 @@ const NexusTerminal: React.FC<NexusTerminalProps> = ({ initialDork }) => {
              )}
 
              {results.length === 0 && !loading ? (
-                <div className="h-full flex flex-col items-center justify-center text-slate-300">
+            <div className="h-full flex flex-col items-center justify-center text-slate-300">
                    <Search className="w-16 h-16 mb-4 opacity-20" />
                    <p className="text-sm font-medium text-slate-400">Phantom Browser Ready</p>
-                   <p className="text-xs text-slate-300/50 mt-1">Waiting for command execution...</p>
-                </div>
-             ) : (
+                    <p className="text-xs text-slate-300/50 mt-1">
+                      {errorMessage || 'Waiting for command execution...'}
+                    </p>
+                 </div>
+              ) : (
                <div className="p-6 max-w-3xl mx-auto space-y-6">
                  {/* Mock Google Header */}
                  <div className="border-b border-gray-100 pb-4 mb-4">
@@ -268,13 +285,37 @@ const NexusTerminal: React.FC<NexusTerminalProps> = ({ initialDork }) => {
           </div>
           
           {/* Overlay for Secure Mode */}
-          {secureMode && (
-             <div className="absolute top-2 right-2 px-2 py-1 bg-green-500/10 border border-green-500/20 rounded text-[10px] text-green-600 font-bold pointer-events-none flex items-center gap-1 z-20">
-               <Shield className="w-3 h-3" /> PROTECTED
+           {secureMode && (
+              <div className="absolute top-2 right-2 px-2 py-1 bg-green-500/10 border border-green-500/20 rounded text-[10px] text-green-600 font-bold pointer-events-none flex items-center gap-1 z-20">
+                <Shield className="w-3 h-3" /> PROTECTED
+              </div>
+           )}
+
+           {showInvalidKeyDialog && (
+             <div className="absolute inset-0 z-30 flex items-center justify-center bg-slate-950/80 p-4">
+               <div className="w-full max-w-md rounded-xl border border-red-500/40 bg-slate-900 p-6 shadow-2xl">
+                 <div className="flex items-start gap-3">
+                   <XCircle className="mt-0.5 h-6 w-6 flex-shrink-0 text-red-400" />
+                   <div className="flex-1">
+                     <h3 className="text-lg font-semibold text-white">Invalid Gemini API Key</h3>
+                     <p className="mt-2 text-sm text-slate-300">
+                       The Phantom Browser could not authenticate with Gemini. Open Settings, replace the API key, and run the search again.
+                     </p>
+                   </div>
+                 </div>
+                 <div className="mt-6 flex justify-end">
+                   <button
+                     onClick={() => setShowInvalidKeyDialog(false)}
+                     className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-500"
+                   >
+                     Close
+                   </button>
+                 </div>
+               </div>
              </div>
-          )}
-       </div>
-    </div>
+           )}
+        </div>
+     </div>
   );
 };
 
