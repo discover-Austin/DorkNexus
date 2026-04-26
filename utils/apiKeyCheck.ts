@@ -4,7 +4,17 @@ type AppSettingsShape = {
   };
 };
 
+let runtimeApiKey = '';
+
+export const setRuntimeApiKey = (apiKey: string): void => {
+  runtimeApiKey = apiKey.trim();
+};
+
 const readStoredApiKey = (): string => {
+  if (runtimeApiKey) {
+    return runtimeApiKey;
+  }
+
   if (typeof window === 'undefined') {
     return '';
   }

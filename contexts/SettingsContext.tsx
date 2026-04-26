@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { AppSettings } from '../types';
+import { setRuntimeApiKey } from '../utils/apiKeyCheck';
 
 // Default settings
 const defaultSettings: AppSettings = {
@@ -68,9 +69,9 @@ const storage = {
   async setItem(key: string, value: string): Promise<void> {
     if (window.electronStore) {
       await window.electronStore.set(key, JSON.parse(value));
+    } else {
+      localStorage.setItem(key, value);
     }
-
-    localStorage.setItem(key, value);
   }
 };
 
@@ -93,7 +94,11 @@ export const SettingsProvider: React.FC<{ children: ReactNode }> = ({ children }
         if (saved) {
           const parsedSettings = JSON.parse(saved);
           // Merge with defaults to ensure all keys exist
-          setSettings({ ...defaultSettings, ...parsedSettings });
+          const mergedSettings = { ...defaultSettings, ...parsedSettings };
+          setRuntimeApiKey(mergedSettings.apiKeys.geminiApiKey);
+          setSettings(mergedSettings);
+        } else {
+          setRuntimeApiKey(defaultSettings.apiKeys.geminiApiKey);
         }
       } catch (e) {
         console.error('Failed to load settings:', e);
@@ -153,11 +158,13 @@ export const SettingsProvider: React.FC<{ children: ReactNode }> = ({ children }
       }
     });
 
+    setRuntimeApiKey(newSettings.apiKeys.geminiApiKey);
     setSettings(newSettings);
     await storage.setItem('app_settings', JSON.stringify(newSettings));
   };
 
   const resetSettings = async () => {
+    setRuntimeApiKey(defaultSettings.apiKeys.geminiApiKey);
     setSettings(defaultSettings);
     await storage.setItem('app_settings', JSON.stringify(defaultSettings));
   };

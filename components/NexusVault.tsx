@@ -23,9 +23,9 @@ const storage = {
   async setItem(key: string, value: string): Promise<void> {
     if (window.electronStore) {
       await window.electronStore.set(key, JSON.parse(value));
+    } else {
+      localStorage.setItem(key, value);
     }
-
-    localStorage.setItem(key, value);
   }
 };
 
