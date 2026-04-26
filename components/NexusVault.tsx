@@ -21,11 +21,11 @@ const storage = {
   },
 
   async setItem(key: string, value: string): Promise<void> {
-    localStorage.setItem(key, value);
-
     if (window.electronStore) {
       await window.electronStore.set(key, JSON.parse(value));
     }
+
+    localStorage.setItem(key, value);
   }
 };
 

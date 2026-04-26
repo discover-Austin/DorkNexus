@@ -4,7 +4,8 @@ const Store = require('electron-store');
 
 // Initialize electron-store
 const store = new Store({
-  name: 'dorknexus-storage'
+  name: 'dorknexus-storage',
+  encryptionKey: 'parallax-nexus-secure-key-2026'
 });
 
 let mainWindow;

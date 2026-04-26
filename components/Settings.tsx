@@ -219,7 +219,7 @@ const Settings: React.FC = () => {
                 >
                   Google AI Studio
                 </a>{' '}
-                to create a free Gemini API key. Your key is stored only on this device unless you explicitly provide one at build time for a deployment.
+                to create a free Gemini API key. Your key stays on this device unless you intentionally set VITE_GEMINI_API_KEY for a web build, which embeds it into the deployed bundle.
               </span>
             </p>
           </div>
