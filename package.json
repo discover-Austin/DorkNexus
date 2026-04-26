@@ -75,5 +75,8 @@
     "vite": "^6.2.0",
     "vite-plugin-electron": "^0.29.0",
     "wait-on": "^9.0.3"
+  },
+  "overrides": {
+    "@electron/node-gyp": "https://codeload.github.com/electron/node-gyp/tar.gz/06b29aafb7708acef8b3669835c8a7857ebc92d2"
   }
 }

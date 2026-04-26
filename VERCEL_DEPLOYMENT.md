@@ -140,7 +140,7 @@ To add a custom domain:
 - **Solution**: Run `npm install` locally to verify dependencies
 
 **Issue**: Install fails while fetching `@electron/node-gyp`
-- **Solution**: Ensure the lockfile resolves `@electron/node-gyp` with `git+https://github.com/...` instead of `git+ssh://git@github.com/...`, because Vercel does not provide GitHub SSH credentials during dependency installation
+- **Solution**: Keep the root package override for `@electron/node-gyp` pointed at the HTTPS codeload tarball, because Vercel does not provide GitHub SSH credentials during dependency installation
 
 ### API Key Issues
 
