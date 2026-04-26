@@ -42,11 +42,11 @@ interface Env {
 
 declare global {
   interface Window {
-    electronStore: ElectronStore;
-    electronApp: ElectronApp;
-    storage: Storage;
-    electronConsole: ElectronConsole;
-    env: Env;
+    electronStore?: ElectronStore;
+    electronApp?: ElectronApp;
+    storage?: Storage;
+    electronConsole?: ElectronConsole;
+    env?: Env;
   }
 }
 

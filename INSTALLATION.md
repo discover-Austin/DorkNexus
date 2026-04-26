@@ -86,7 +86,7 @@ code .env.local
 
 3. Add your Gemini API key:
 ```
-GEMINI_API_KEY=your_api_key_here
+VITE_GEMINI_API_KEY=your_api_key_here
 ```
 
 4. Save and close the file.
@@ -131,10 +131,10 @@ After starting the application:
 
 ## Troubleshooting
 
-### "GEMINI_API_KEY is not defined"
+### "Gemini API key is not configured"
 
 - Ensure `.env.local` exists in the root directory
-- Check that the key name is exactly `GEMINI_API_KEY`
+- Check that the key name is `VITE_GEMINI_API_KEY` (or `GEMINI_API_KEY` for legacy setups)
 - Restart the development server after changing environment variables
 
 ### "npm install" fails
@@ -161,7 +161,7 @@ Google Gemini has rate limits. If you see rate limit errors:
 
 1. Build the project: `npm run build`
 2. Upload the `dist/` folder to your hosting provider
-3. Set the `GEMINI_API_KEY` environment variable in your hosting dashboard
+3. Set the `VITE_GEMINI_API_KEY` environment variable in your hosting dashboard before building
 
 ### Docker (Advanced)
 

@@ -1,16 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { AppSettings } from '../types';
 
-// Define window interface for Electron APIs
-declare global {
-  interface Window {
-    electronStore?: {
-      get: (key: string) => Promise<any>;
-      set: (key: string, value: any) => Promise<boolean>;
-    };
-  }
-}
-
 // Default settings
 const defaultSettings: AppSettings = {
   apiKeys: {
@@ -67,17 +57,19 @@ const storage = {
   async getItem(key: string): Promise<string | null> {
     if (window.electronStore) {
       const value = await window.electronStore.get(key);
-      return value !== undefined ? JSON.stringify(value) : null;
-    } else {
-      return localStorage.getItem(key);
+      if (value !== undefined) {
+        return JSON.stringify(value);
+      }
     }
+
+    return localStorage.getItem(key);
   },
 
   async setItem(key: string, value: string): Promise<void> {
+    localStorage.setItem(key, value);
+
     if (window.electronStore) {
       await window.electronStore.set(key, JSON.parse(value));
-    } else {
-      localStorage.setItem(key, value);
     }
   }
 };

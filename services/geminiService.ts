@@ -4,11 +4,13 @@ import { getApiKeyOrThrow } from "../utils/apiKeyCheck";
 
 // Base instance for standard calls - lazily initialized
 let ai: GoogleGenAI | null = null;
+let currentApiKey = '';
 
 const getAI = () => {
-  if (!ai) {
-    const apiKey = getApiKeyOrThrow();
+  const apiKey = getApiKeyOrThrow();
+  if (!ai || currentApiKey !== apiKey) {
     ai = new GoogleGenAI({ apiKey });
+    currentApiKey = apiKey;
   }
   return ai;
 };

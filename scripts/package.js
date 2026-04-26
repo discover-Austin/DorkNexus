@@ -5,15 +5,9 @@
  * Creates a clean zip file for distribution to customers
  */
 
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import archiver from 'archiver';
-import { createRequire } from 'module';
-
-const require = createRequire(import.meta.url);
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const fs = require('fs');
+const path = require('path');
+const archiver = require('archiver');
 
 // Configuration
 const VERSION = '1.0.0';

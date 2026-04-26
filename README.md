@@ -81,7 +81,7 @@ npm run setup
 ```bash
 npm install
 cp .env.example .env.local
-# Edit .env.local and add your GEMINI_API_KEY
+# Edit .env.local and add your VITE_GEMINI_API_KEY
 npm run dev
 # Open http://localhost:3000
 ```

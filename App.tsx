@@ -101,7 +101,7 @@ const App: React.FC = () => {
         <div className="bg-yellow-900/20 border-b border-yellow-600 px-4 py-2">
           <div className="max-w-7xl mx-auto flex items-center justify-between text-sm">
             <span className="text-yellow-300">
-              ⚠️ AI features disabled - Add GEMINI_API_KEY to enable
+              ⚠️ AI features disabled - add a Gemini API key in Settings or via VITE_GEMINI_API_KEY
             </span>
             <a 
               href="https://aistudio.google.com/app/apikey" 
