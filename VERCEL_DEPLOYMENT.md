@@ -68,6 +68,7 @@ The repository includes a `vercel.json` file with:
 - **Build Command**: `npm run build`
 - **Output Directory**: `dist`
 - **Node Version**: 20.x
+- **No forced `NODE_ENV` during install**: keeps Vite available from `devDependencies`
 - **SPA Routing**: All routes redirect to `index.html`
 - **Security Headers**: Added for enhanced security
 - **Asset Caching**: Optimized cache headers for static assets
@@ -133,7 +134,7 @@ To add a custom domain:
 ### Build Fails
 
 **Issue**: Build fails with "vite: not found"
-- **Solution**: Ensure `package.json` includes vite in devDependencies
+- **Solution**: Ensure `package.json` includes vite in `devDependencies` and do not force `NODE_ENV=production` during Vercel dependency installation, or Vite will be skipped
 
 **Issue**: Build fails with module errors
 - **Solution**: Run `npm install` locally to verify dependencies
