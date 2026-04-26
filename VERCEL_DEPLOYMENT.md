@@ -23,7 +23,7 @@ This guide explains how to deploy the DorkNexus web application to Vercel.
 
 3. **Configure Environment Variables**
    - Add the following environment variable:
-     - `GEMINI_API_KEY`: Your Google Gemini API key
+      - `VITE_GEMINI_API_KEY`: Your Google Gemini API key
    - Click "Add" to save the environment variable
 
 4. **Deploy**
@@ -54,7 +54,7 @@ This guide explains how to deploy the DorkNexus web application to Vercel.
 
 4. **Set Environment Variables**
    ```bash
-   vercel env add GEMINI_API_KEY
+   vercel env add VITE_GEMINI_API_KEY
    # Paste your API key when prompted
    # Select: Production, Preview, and Development
    ```
@@ -75,12 +75,12 @@ The repository includes a `vercel.json` file with:
 ### Environment Variables
 
 Required environment variables:
-- `GEMINI_API_KEY` - Your Google Gemini API key (required)
+- `VITE_GEMINI_API_KEY` - Your Google Gemini API key (required for web deployments)
 
 To add environment variables in Vercel:
 1. Go to your project settings
 2. Navigate to "Environment Variables"
-3. Add `GEMINI_API_KEY` with your API key
+3. Add `VITE_GEMINI_API_KEY` with your API key
 4. Select which environments need it (Production, Preview, Development)
 
 ### Build Settings

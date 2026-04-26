@@ -1,15 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { AppSettings } from '../types';
-
-// Define window interface for Electron APIs
-declare global {
-  interface Window {
-    electronStore?: {
-      get: (key: string) => Promise<any>;
-      set: (key: string, value: any) => Promise<boolean>;
-    };
-  }
-}
+import { setRuntimeApiKey } from '../utils/apiKeyCheck';
 
 // Default settings
 const defaultSettings: AppSettings = {
@@ -67,10 +58,12 @@ const storage = {
   async getItem(key: string): Promise<string | null> {
     if (window.electronStore) {
       const value = await window.electronStore.get(key);
-      return value !== undefined ? JSON.stringify(value) : null;
-    } else {
-      return localStorage.getItem(key);
+      if (value !== undefined) {
+        return JSON.stringify(value);
+      }
     }
+
+    return localStorage.getItem(key);
   },
 
   async setItem(key: string, value: string): Promise<void> {
@@ -101,7 +94,11 @@ export const SettingsProvider: React.FC<{ children: ReactNode }> = ({ children }
         if (saved) {
           const parsedSettings = JSON.parse(saved);
           // Merge with defaults to ensure all keys exist
-          setSettings({ ...defaultSettings, ...parsedSettings });
+          const mergedSettings = { ...defaultSettings, ...parsedSettings };
+          setRuntimeApiKey(mergedSettings.apiKeys.geminiApiKey);
+          setSettings(mergedSettings);
+        } else {
+          setRuntimeApiKey(defaultSettings.apiKeys.geminiApiKey);
         }
       } catch (e) {
         console.error('Failed to load settings:', e);
@@ -161,11 +158,13 @@ export const SettingsProvider: React.FC<{ children: ReactNode }> = ({ children }
       }
     });
 
+    setRuntimeApiKey(newSettings.apiKeys.geminiApiKey);
     setSettings(newSettings);
     await storage.setItem('app_settings', JSON.stringify(newSettings));
   };
 
   const resetSettings = async () => {
+    setRuntimeApiKey(defaultSettings.apiKeys.geminiApiKey);
     setSettings(defaultSettings);
     await storage.setItem('app_settings', JSON.stringify(defaultSettings));
   };

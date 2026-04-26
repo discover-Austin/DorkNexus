@@ -4,7 +4,7 @@ const Store = require('electron-store');
 
 // Initialize electron-store
 const store = new Store({
-  name: 'parallax-storage',
+  name: 'dorknexus-storage',
   encryptionKey: 'parallax-nexus-secure-key-2026'
 });
 
@@ -46,8 +46,7 @@ function createWindow() {
     minWidth: 1024,
     minHeight: 768,
     backgroundColor: '#0f172a',
-    title: 'Parallax - Advanced Google Dorking Toolkit',
-    icon: path.join(__dirname, '../build/icon.png'), // You can add an icon later
+    title: 'DorkNexus - Advanced Google Dorking Toolkit',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,

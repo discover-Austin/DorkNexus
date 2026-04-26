@@ -8,6 +8,7 @@ import {
   Bell,
   Eye,
   Settings as SettingsIcon,
+  Key,
   RotateCcw,
   Check,
   Monitor,
@@ -161,7 +162,7 @@ const Settings: React.FC = () => {
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-white mb-2">Settings</h2>
-          <p className="text-slate-400">Customize your Parallax experience</p>
+          <p className="text-slate-400">Customize your DorkNexus experience</p>
         </div>
         <div className="flex gap-3">
           {saveStatus === 'saved' && (
@@ -186,11 +187,11 @@ const Settings: React.FC = () => {
         <SettingsSection
           icon={Key}
           title="API Keys"
-          description="Securely manage your API credentials (stored in encrypted storage)"
+          description="Manage the Gemini API key used by local AI-powered features"
         >
           <SettingRow
             label="Gemini API Key"
-            description="Required for AI-powered dork generation and analysis"
+            description="Required for AI-powered generation, analysis, and research features"
           >
             <div className="flex gap-2 items-center">
               <input
@@ -218,7 +219,7 @@ const Settings: React.FC = () => {
                 >
                   Google AI Studio
                 </a>{' '}
-                to create a free Gemini API key. Your key is encrypted and stored locally - it never leaves your device.
+                to create a free Gemini API key. Your key stays on this device unless you intentionally set VITE_GEMINI_API_KEY for a web build, which embeds it into the deployed bundle.
               </span>
             </p>
           </div>
@@ -473,7 +474,7 @@ const Settings: React.FC = () => {
             />
           </SettingRow>
 
-          <SettingRow label="Analytics" description="Help improve Parallax">
+          <SettingRow label="Analytics" description="Help improve DorkNexus">
             <ToggleSwitch
               checked={settings.advanced.enableAnalytics}
               onChange={(checked) => handleUpdate({ advanced: { ...settings.advanced, enableAnalytics: checked } })}
@@ -486,7 +487,7 @@ const Settings: React.FC = () => {
           <Info className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
           <div className="text-sm text-blue-200/80">
             <strong className="block text-blue-400 mb-1">Settings Auto-Save</strong>
-            All settings are automatically saved to your local device using encrypted storage. Your preferences will persist across sessions.
+            All settings are automatically saved on your local device so your preferences persist across sessions.
           </div>
         </div>
       </div>

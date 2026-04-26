@@ -1,7 +1,7 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 /**
- * Preload script for Parallax
+ * Preload script for DorkNexus
  * Exposes secure IPC methods to the renderer process
  * Replaces localStorage with electron-store
  */
@@ -77,7 +77,7 @@ contextBridge.exposeInMainWorld('electronConsole', {
 });
 
 // Security: Log when preload script is loaded
-console.log('Parallax preload script loaded successfully');
+console.log('DorkNexus preload script loaded successfully');
 
 // Expose environment info
 contextBridge.exposeInMainWorld('env', {

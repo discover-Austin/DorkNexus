@@ -5,13 +5,10 @@
  * Builds and prepares the application for deployment
  */
 
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { execSync } from 'child_process';
+const fs = require('fs');
+const path = require('path');
+const { execSync } = require('child_process');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 
 // Colors for cross-platform terminal output
@@ -75,11 +72,12 @@ async function main() {
 
   // Check for API key
   const envLocalPath = path.join(PROJECT_ROOT, '.env.local');
+  const configuredApiKey = process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
   if (!fs.existsSync(envLocalPath)) {
-    log('Warning: .env.local not found. Checking for GEMINI_API_KEY...', colors.yellow);
-    if (!process.env.GEMINI_API_KEY) {
-      logError('GEMINI_API_KEY is not set.');
-      console.log('Please create .env.local with your API key or set GEMINI_API_KEY environment variable.');
+    log('Warning: .env.local not found. Checking for a Gemini API key...', colors.yellow);
+    if (!configuredApiKey) {
+      logError('A Gemini API key is not set.');
+      console.log('Please create .env.local with VITE_GEMINI_API_KEY (or GEMINI_API_KEY) or set the environment variable before deploying.');
       process.exit(1);
     }
   }
@@ -128,7 +126,7 @@ async function main() {
   console.log('  2. Run \'npm run preview\' to test locally');
   console.log('  3. Copy \'dist/\' to your web server\'s public directory');
   console.log('');
-  console.log('Remember to set GEMINI_API_KEY in your hosting environment!');
+  console.log('Remember to set VITE_GEMINI_API_KEY (or GEMINI_API_KEY) in your hosting environment!');
   console.log('');
 }
 

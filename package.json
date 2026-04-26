@@ -1,9 +1,9 @@
 {
-  "name": "parallax",
-  "productName": "Parallax",
+  "name": "dorknexus",
+  "productName": "DorkNexus",
   "version": "1.0.0",
   "description": "Advanced Google Dorking Toolkit - AI-powered OSINT and security research platform with Gemini AI integration",
-  "author": "Parallax Team",
+  "author": "discover-Austin",
   "license": "SEE LICENSE FILE",
   "private": true,
   "main": "electron/main.js",
