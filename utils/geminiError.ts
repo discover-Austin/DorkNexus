@@ -31,11 +31,11 @@ export const isInvalidGeminiApiKeyError = (error: unknown): boolean => {
 };
 
 export const getGeminiErrorMessage = (error: unknown, fallback: string): string => {
+  const message = getErrorMessage(error).toLowerCase();
+
   if (isInvalidGeminiApiKeyError(error)) {
     return 'The configured Gemini API key was rejected. Please update it in Settings and try again.';
   }
-
-  const message = getErrorMessage(error).toLowerCase();
 
   if (message.includes('model') && message.includes('not found')) {
     return 'The configured Gemini model is unavailable right now. Please try again after updating the app.';
